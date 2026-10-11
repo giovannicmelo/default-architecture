@@ -9,7 +9,7 @@ import org.junit.Test
 class SampleMapperTest {
 
     @Test
-    fun `given a feature response, when mapped to entity, then keeps id and name`() {
+    fun `given a sample response, when mapped to entity, then keeps id and name`() {
         // Given
         val response = SampleResponse(id = "1", name = "Primeira")
 
@@ -21,14 +21,14 @@ class SampleMapperTest {
     }
 
     @Test
-    fun `given a feature entity, when mapped to domain, then keeps id and name`() {
+    fun `given a sample entity, when mapped to domain, then keeps id and name`() {
         // Given
         val entity = SampleEntity(id = "1", name = "Primeira")
 
         // When
-        val feature = entity.toDomain()
+        val sample = entity.toDomain()
 
         // Then
-        assertEquals(Sample(id = "1", name = "Primeira"), feature)
+        assertEquals(Sample(id = "1", name = "Primeira"), sample)
     }
 }

@@ -58,7 +58,7 @@ abstract class SampleDataModule {
         @Provides
         @Singleton
         fun provideSampleDatabase(@ApplicationContext context: Context): SampleDatabase =
-            Room.databaseBuilder(context, SampleDatabase::class.java, "feature.db").build()
+            Room.databaseBuilder(context, SampleDatabase::class.java, "sample.db").build()
 
         @Provides
         fun provideSampleDao(database: SampleDatabase): SampleDao = database.sampleDao()

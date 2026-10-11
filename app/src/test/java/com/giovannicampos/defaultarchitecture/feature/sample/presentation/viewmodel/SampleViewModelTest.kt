@@ -84,7 +84,7 @@ class SampleViewModelTest {
     }
 
     @Test
-    fun `given samples are loaded, when a feature is clicked, then emits navigation to its detail`() = runTest {
+    fun `given samples are loaded, when a sample is clicked, then emits navigation to its detail`() = runTest {
         // Given
         coEvery { getSamples() } returns samples
         val viewModel = SampleViewModel(getSamples)

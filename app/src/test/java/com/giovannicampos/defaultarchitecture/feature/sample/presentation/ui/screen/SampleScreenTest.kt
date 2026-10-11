@@ -19,7 +19,7 @@ class SampleScreenTest {
     private val samples = listOf(Sample(id = "1", name = "Primeira"), Sample(id = "2", name = "Segunda"))
 
     @Test
-    fun `given state with samples, when screen is shown, then displays each feature`() {
+    fun `given state with samples, when screen is shown, then displays each sample`() {
         // Given
         val uiState = SampleUiState(samples = samples)
 
@@ -46,7 +46,7 @@ class SampleScreenTest {
     }
 
     @Test
-    fun `given samples are displayed, when a feature is clicked, then sends feature clicked intent`() {
+    fun `given samples are displayed, when a sample is clicked, then sends sample clicked intent`() {
         // Given
         robot.showScreen(SampleUiState(samples = samples))
 

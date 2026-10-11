@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">default-architecture</string>
-    <string name="feature_list_title">Features</string>
-    <string name="feature_load_error">Não foi possível atualizar a lista.</string>
+    <string name="sample_list_title">Samples</string>
+    <string name="sample_load_error">Não foi possível atualizar a lista.</string>
 </resources>

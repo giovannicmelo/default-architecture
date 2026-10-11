@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.giovannicampos.defaultarchitecture.core.ui.theme.DefaultArchitectureTheme
-import com.giovannicampos.defaultarchitecture.feature.presentation.ui.navigation.FeatureListRoute
-import com.giovannicampos.defaultarchitecture.feature.presentation.ui.navigation.featureListScreen
+import com.giovannicampos.defaultarchitecture.feature.sample.presentation.ui.navigation.SampleListRoute
+import com.giovannicampos.defaultarchitecture.feature.sample.presentation.ui.navigation.sampleListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,10 +20,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             DefaultArchitectureTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = FeatureListRoute) {
-                    featureListScreen(
+                NavHost(navController = navController, startDestination = SampleListRoute) {
+                    sampleListScreen(
                         // Ainda não existe tela de detalhe para navegar.
-                        onNavigateToFeatureDetail = {},
+                        onNavigateToSampleDetail = {},
                     )
                 }
             }

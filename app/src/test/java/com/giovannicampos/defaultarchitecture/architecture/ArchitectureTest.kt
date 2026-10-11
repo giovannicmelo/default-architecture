@@ -10,6 +10,7 @@ import com.lemonappdev.konsist.api.verify.assertTrue
 import org.junit.Test
 
 private const val ROOT = "com.giovannicampos.defaultarchitecture"
+private const val FEATURE_ROOT = "$ROOT.feature."
 
 class LayerTest {
 
@@ -39,14 +40,22 @@ class LayerTest {
     @Test
     fun `given feature packages, when checking imports, then no feature imports another feature`() {
         Konsist.scopeFromProduction().files
-            .filter { it.packagee?.name?.startsWith("$ROOT.") == true && it.packagee?.name?.startsWith("$ROOT.core") == false }
+            .filter { it.packagee?.name?.startsWith(FEATURE_ROOT) == true }
             .assertFalse(additionalMessage = "Features não se conhecem: comunique por navegação no MainActivity ou por contrato em core.") { file ->
-                val own = file.packagee?.name?.removePrefix("$ROOT.")?.substringBefore('.')
+                val own = file.packagee?.name?.removePrefix(FEATURE_ROOT)?.substringBefore('.')
                 file.imports.any { imp ->
-                    // "" = classe no pacote base (MainActivity, R): não é feature
-                    val segment = imp.name.removePrefix("$ROOT.").substringBefore('.', missingDelimiterValue = "")
-                    imp.name.startsWith("$ROOT.") && segment.isNotEmpty() && segment != own && segment != "core"
+                    imp.name.startsWith(FEATURE_ROOT) && imp.name.removePrefix(FEATURE_ROOT).substringBefore('.') != own
                 }
+            }
+    }
+
+    @Test
+    fun `given production packages, when checking the top level, then everything is either core or feature`() {
+        Konsist.scopeFromProduction().files
+            .filter { it.packagee?.name != null && it.packagee?.name != ROOT }
+            .assertTrue(additionalMessage = "Tudo o que não é feature é core: use $ROOT.core.* ou $FEATURE_ROOT<nome>.*.") { file ->
+                val pkg = file.packagee?.name.orEmpty()
+                pkg.startsWith("$ROOT.core") || pkg.startsWith(FEATURE_ROOT)
             }
     }
 }
@@ -56,7 +65,7 @@ class PackageTest {
     private fun assertSuffixInPackage(suffix: String, pkg: String) {
         Konsist.scopeFromProduction().classesAndInterfacesAndObjects()
             .filter { it.name.endsWith(suffix) }
-            .assertTrue(additionalMessage = "Classes *$suffix ficam em <feature>/$pkg (skill android-architecture).") {
+            .assertTrue(additionalMessage = "Classes *$suffix ficam em feature/<nome>/$pkg (skill android-architecture).") {
                 it.packagee?.name?.endsWith(".$pkg") == true
             }
     }
